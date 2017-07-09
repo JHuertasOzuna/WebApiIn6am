@@ -1,0 +1,24 @@
+{
+  "name": "webapiin6am",
+  "version": "1.0.0",
+  "description": "Web services RestFul Agenda",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "keywords": [
+    "WebServices",
+    "RestFull",
+    "Agenda",
+    "Node",
+    "Express"
+  ],
+  "author": "Javier Huertas",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.15.3",
+    "mysql": "^2.13.0"
+  }
+}
