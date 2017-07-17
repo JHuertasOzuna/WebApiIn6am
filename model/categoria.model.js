@@ -13,6 +13,18 @@ Categoria.select = function(callback) {
 	}
 }
 
+Categoria.find = function(idCategoria, callback) {
+  if(database) {
+		database.query('SELECT * FROM Categoria WHERE idCategoria=?', idCategoria, function(error, resultados){
+			if(error) {
+				throw error;
+			} else {
+				callback(resultados);
+			}
+		});
+	}
+}
+
 Categoria.insert = function(data, callback) {
   if(database) {
     database.query('INSERT INTO Categoria SET ?', data, function(error, resultado) {

@@ -11,20 +11,13 @@ router.post('/auth/', function(req, res) {
 	usuario.login(data, function(resultado) {
 		if(typeof resultado !== undefined) {
 
-			var temp = {
-				idUsuario: resultado[0].idUsuario,
-				nick: resultado[0].nick,
-				contrasena: resultado[0].contrasena
-			}
-			console.log(temp);
-			var token = 'Bearer ' + jwt.sign(temp, 'shh');
-			res.setHeader('Authorization', token);
+			var token = 'Bearer ' + jwt.sign(resultado[0], 'shh', { expiresIn: '1h' });
 
-			res.json({
-				estado: true,
-				mensaje: "Se autorizo el acceso",
-				token: token
-			});
+			resultado[0].estado = true;
+			resultado[0].mensaje = "Se autorizo el acceso";
+			resultado[0].token = token;
+
+			res.json(resultado[0]);
 		} else {
 			res.json({
 				estado: false,

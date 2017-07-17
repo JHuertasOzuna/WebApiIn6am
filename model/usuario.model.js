@@ -8,6 +8,8 @@ usuario.login = function(data, callback) {
 			if(error) {
 				throw error;
 			} else {
+				console.log(resultado[0]);
+
 				callback(resultado[0]);
 			}
 		});

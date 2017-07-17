@@ -1,9 +1,9 @@
 var express = require('express');
 var usuario = require('../../model/usuario.model');
-var usuarioRouter = express.Router();
+var services = require('../../services');
+var router = express.Router();
 
-
-usuarioRouter.get('/usuario', function(req, res) {
+router.get('/usuario', function(req, res) {
   usuario.selectAll(function(resultado) {
     if(typeof resultado !== undefined) {
       res.json(resultado);
@@ -13,7 +13,7 @@ usuarioRouter.get('/usuario', function(req, res) {
   });
 });
 
-usuarioRouter.get('/usuario/historial', function(req, res) {
+router.get('/usuario/historial', function(req, res) {
   usuario.selectHistorial(1, function(err, resultado) {
     if(typeof resultado !== undefined) {
       res.json(resultado);
@@ -23,18 +23,21 @@ usuarioRouter.get('/usuario/historial', function(req, res) {
   });
 });
 
-
-usuarioRouter.post('/usuario', function(req, res) {
+/*
+SI ALGUIEN ESTA DORMIDO, NO LO DESPIERTEN,
+NOS TOMAMOS UNA FOTICA A LA PAR DE EL
+*/
+router.post('/usuario', function(req, res) {
   var data = {
     nick : req.body.nick,
     contrasena: req.body.contrasena
   }
   usuario.insert(data, function(resultado) {
     if(typeof resultado !== undefined && resultado.affectedRows > 0) {
-      resultado.status = true;
-      resultado.mensaje = "Se registo el usuario correctamente";
-      
-      res.json(resultado);
+      res.json({
+        estado : true,
+        mensaje : "Se registo el usuario correctamente"
+      });
     } else {
       resultado.status = false;
       resultado.mensaje = "Error no se registro el usuario";
@@ -43,7 +46,7 @@ usuarioRouter.post('/usuario', function(req, res) {
   });
 });
 
-usuarioRouter.put('/usuario/:idUsuario', function(req, res){
+router.put('/usuario/:idUsuario', function(req, res){
   var idUsuario = req.params.idUsuario;
 
 	var data = {
@@ -67,7 +70,7 @@ usuarioRouter.put('/usuario/:idUsuario', function(req, res){
   }
 });
 
-usuarioRouter.delete('/usuario/:idUsuario', function(req, res){
+router.delete('/usuario/:idUsuario', function(req, res){
 	var idUsuario = req.params.idUsuario;
 
 	usuario.delete(idUsuario, function(resultado){
@@ -78,4 +81,4 @@ usuarioRouter.delete('/usuario/:idUsuario', function(req, res){
 		}
 	});
 });
-module.exports = usuarioRouter;
+module.exports = router;

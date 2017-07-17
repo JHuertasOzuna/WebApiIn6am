@@ -12,6 +12,17 @@ router.get('/categoria/', function(req, res, next) {
   });
 });
 
+router.get('/categoria/:idCategoria', function(req, res, next) {
+  var idCategoria = req.params.idCategoria;
+  categoria.find(idCategoria, function(categorias) {
+    if(typeof categorias !== 'undefined') {
+      res.json(categorias);
+    } else {
+      res.json({"mensaje" : "No hay categorias"});
+    }
+  });
+});
+
 router.post('/categoria', function(req, res, next) {
   var data = {
     idCategoria : null,
@@ -20,7 +31,7 @@ router.post('/categoria', function(req, res, next) {
 
   categoria.insert(data, function(resultado){
     if(resultado && resultado.insertId > 0) {
-      res.redirect('/api/categoria/');
+      res.json({"mensaje":"Se ingreso la categoria"});
     } else {
       res.json({"mensaje":"No se ingreso la categoria"});
     }
