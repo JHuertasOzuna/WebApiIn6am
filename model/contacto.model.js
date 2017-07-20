@@ -22,6 +22,7 @@ Contacto.insert = function(data, callback) {
       if(error) {
         throw error;
       } else {
+      	console.log(resultado);
         callback({"affectedRows": resultado.affectedRows});
       }
     });

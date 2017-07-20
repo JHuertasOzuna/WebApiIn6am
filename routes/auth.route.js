@@ -9,7 +9,7 @@ router.post('/auth/', function(req, res) {
 		contrasena: req.body.contrasena
 	}
 	usuario.login(data, function(resultado) {
-		if(typeof resultado !== undefined) {
+		if(resultado != 0) {
 
 			var token = 'Bearer ' + jwt.sign(resultado[0], 'shh', { expiresIn: '1h' });
 
@@ -21,7 +21,7 @@ router.post('/auth/', function(req, res) {
 		} else {
 			res.json({
 				estado: false,
-				mensaje: "No hay usuarios"
+				mensaje: "Contraseña y Nick incorrecto, por favor no lo vuelva a intentar ;)"
 			});
 		}
 	});

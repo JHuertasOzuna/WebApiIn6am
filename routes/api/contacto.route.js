@@ -28,6 +28,8 @@ router.get('/contacto/:id', services.verificar, function(req, res, next) {
 });
 
 router.post('/contacto', services.verificar, function(req, res, next) {
+  console.log(req.usuario);
+  
   var data = {
     idUsuario: req.usuario.idUsuario,
     nombre : req.body.nombre,
@@ -36,7 +38,7 @@ router.post('/contacto', services.verificar, function(req, res, next) {
     direccion : req.body.direccion,
     idCategoria : req.body.idCategoria
   };
-
+  console.log(data);
   contacto.insert(data, function(resultado){
     if(resultado && resultado.affectedRows > 0) {
       res.json({

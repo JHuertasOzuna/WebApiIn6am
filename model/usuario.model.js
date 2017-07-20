@@ -8,9 +8,13 @@ usuario.login = function(data, callback) {
 			if(error) {
 				throw error;
 			} else {
-				console.log(resultado[0]);
+				if(resultado[0].length > 0) {
+					callback(resultado[0]);	
+				} else {
+					callback(0);
+				}
 
-				callback(resultado[0]);
+				
 			}
 		});
 	}
